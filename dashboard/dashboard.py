@@ -18,6 +18,12 @@ data2_path = os.path.abspath(os.path.join(base_path, "../data/data_2.csv"))
 
 df = pd.read_csv(main_data_path)
 
+# ========================
+# 🔧 TAMBAHAN (sinkron SMART)
+# ========================
+df_2011 = df[df['year'] == 2011]
+df_2012 = df[df['year'] == 2012]
+
 # Sidebar filter
 st.sidebar.header("Filter Data")
 
@@ -64,49 +70,49 @@ with open(data2_path, "rb") as file:
 st.write("---")
 
 # ========================
-# 📊 GRAFIK 1: CUACA
+# 📊 GRAFIK 1: CUACA (2011)
 # ========================
-weather_analysis = df_filtered.groupby('weathersit')['daily_rentals'].mean().sort_values(ascending=False)
+weather_analysis = df_2011.groupby('weathersit')['daily_rentals'].mean().sort_values(ascending=False)
 
-st.subheader("Pengaruh Cuaca terhadap Penyewaan Sepeda")
+st.subheader("Rata-rata Penyewaan Sepeda Berdasarkan Kondisi Cuaca Tahun 2011")
 
 fig, ax = plt.subplots()
 sns.barplot(x=weather_analysis.index, y=weather_analysis.values, ax=ax)
 
 ax.set_xlabel("Kondisi Cuaca")
 ax.set_ylabel("Rata-rata Penyewaan")
-ax.set_title("Rata-rata Penyewaan Sepeda Berdasarkan Cuaca")
+ax.set_title("Pengaruh Cuaca terhadap Penyewaan Sepeda (2011)")
 
 st.pyplot(fig)
 
 # ========================
-# 📊 GRAFIK 2: JAM
+# 📊 GRAFIK 2: JAM (2012)
 # ========================
-hourly_analysis = df_filtered.groupby('hr')['hourly_rentals'].mean()
+hourly_analysis = df_2012.groupby('hr')['hourly_rentals'].mean()
 
-st.subheader("Pola Penyewaan Sepeda Berdasarkan Jam")
+st.subheader("Pola Penyewaan Sepeda Berdasarkan Jam Tahun 2012")
 
 fig2, ax2 = plt.subplots()
 hourly_analysis.plot(ax=ax2)
 
 ax2.set_xlabel("Jam")
 ax2.set_ylabel("Rata-rata Penyewaan")
-ax2.set_title("Penyewaan Sepeda per Jam")
+ax2.set_title("Puncak Penyewaan Sepeda per Jam (2012)")
 
 st.pyplot(fig2)
 
 # ========================
-# 📊 GRAFIK 3: WORKINGDAY
+# 📊 GRAFIK 3: WORKINGDAY (2011)
 # ========================
-workingday_analysis = df_filtered.groupby('workingday')['daily_rentals'].mean()
+workingday_analysis = df_2011.groupby('workingday')['daily_rentals'].mean()
 
-st.subheader("Perbandingan Penyewaan: Hari Kerja vs Akhir Pekan")
+st.subheader("Perbandingan Penyewaan Sepeda: Hari Kerja vs Akhir Pekan Tahun 2011")
 
 fig3, ax3 = plt.subplots()
 sns.barplot(x=workingday_analysis.index, y=workingday_analysis.values, ax=ax3)
 
-ax3.set_xlabel("Kategori Hari")
+ax3.set_xlabel("Kategori Hari (0 = Weekend, 1 = Hari Kerja)")
 ax3.set_ylabel("Rata-rata Penyewaan")
-ax3.set_title("Rata-rata Penyewaan Sepeda: Hari Kerja vs Akhir Pekan")
+ax3.set_title("Perbandingan Penyewaan Sepeda (2011)")
 
 st.pyplot(fig3)
