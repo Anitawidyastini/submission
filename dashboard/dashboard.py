@@ -9,7 +9,7 @@ st.title("Dashboard Analisis Penyewaan Sepeda")
 st.write("Dashboard ini menampilkan analisis penyewaan sepeda berdasarkan cuaca, jam, dan jenis hari.")
 
 # Load data
-df = pd.read_csv('main_data.csv')
+df = pd.read_csv('dashboard/main_data.csv')
 
 # Sidebar filter
 st.sidebar.header("Filter Data")
