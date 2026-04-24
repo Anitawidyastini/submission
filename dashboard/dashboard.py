@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 # Judul dashboard
 st.title("Dashboard Analisis Penyewaan Sepeda")
@@ -9,12 +10,13 @@ st.title("Dashboard Analisis Penyewaan Sepeda")
 st.write("Dashboard ini menampilkan analisis penyewaan sepeda berdasarkan cuaca, jam, dan jenis hari.")
 
 # Load data
-import os
 base_path = os.path.dirname(__file__)
-file_path = os.path.join(base_path, "main_data.csv")
 
-with open(file_path, "rb") as file:
-    df = pd.read_csv(file)
+main_data_path = os.path.join(base_path, "main_data.csv")
+data1_path = os.path.abspath(os.path.join(base_path, "../data/data_1.csv"))
+data2_path = os.path.abspath(os.path.join(base_path, "../data/data_2.csv"))
+
+df = pd.read_csv(main_data_path)
 
 # Sidebar filter
 st.sidebar.header("Filter Data")
@@ -33,7 +35,7 @@ st.subheader("Akses Dataset")
 st.write("Dataset yang Digunakan Dalam Analisis:")
 
 # Download clean data
-with open("main_data.csv", "rb") as file:
+with open(main_data_path, "rb") as file:
     st.download_button(
         label="Download Data Clean",
         data=file,
@@ -42,7 +44,7 @@ with open("main_data.csv", "rb") as file:
     )
 
 # Download data 1/day.df
-with open("../data/data_1.csv", "rb") as file:
+with open(data1_path, "rb") as file:
     st.download_button(
         label="Download Raw Day.df",
         data=file,
@@ -51,15 +53,15 @@ with open("../data/data_1.csv", "rb") as file:
     )
 
 # Download raw data 2
-with open("../data/data_2.csv", "rb") as file:
+with open(data2_path, "rb") as file:
     st.download_button(
         label="Download Raw Hour.df",
         data=file,
         file_name="data_2.csv",
         mime="text/csv"
     )
-st.write("---")
 
+st.write("---")
 
 # ========================
 # 📊 GRAFIK 1: CUACA
