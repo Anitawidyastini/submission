@@ -18,22 +18,9 @@ data2_path = os.path.abspath(os.path.join(base_path, "../data/data_2.csv"))
 
 df = pd.read_csv(main_data_path)
 
-# ========================
-# 🔧 TAMBAHAN (sinkron SMART)
-# ========================
+#Tahun
 df_2011 = df[df['year'] == 2011]
 df_2012 = df[df['year'] == 2012]
-
-# Sidebar filter
-st.sidebar.header("Filter Data")
-
-year_option = st.sidebar.selectbox(
-    "Pilih Tahun",
-    sorted(df['year'].unique())
-)
-
-# Filter data
-df_filtered = df[df['year'] == year_option]
 
 # Tampilkan data
 st.subheader("Akses Dataset")
